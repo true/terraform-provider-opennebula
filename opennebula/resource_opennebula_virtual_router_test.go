@@ -412,13 +412,6 @@ resource "opennebula_virtual_network_address_range" "network3_static_ip6" {
 	prefix_length	   = 126
 	size			   = 4
 }
-resource "opennebula_virtual_network_address_range" "network3_static_ip6" {
-	virtual_network_id = opennebula_virtual_network.network3.id
-	ar_type            = "IP6"
-    ip6     		   = "fd00:ffff:ffff::10"
-	prefix_length	   = 126
-	size			   = 4
-}
 `
 
 var testAccVirtualRouterConfigBasic = testAccVirtualRouterMachineTemplate + `
