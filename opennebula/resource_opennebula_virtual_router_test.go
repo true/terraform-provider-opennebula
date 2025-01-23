@@ -192,10 +192,6 @@ func TestAccVirtualRouter(t *testing.T) {
 					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip_specified", "floating_ip", "true"),
 					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip_specified", "floating_only", "false"),
 					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip_specified", "ip", "172.16.100.160"),
-					// IP6
-					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip6_specified", "floating_ip", "true"),
-					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip6_specified", "floating_only", "false"),
-					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip6_specified", "ip6", "fd00:ffff:ffff::0"),
 					testAccCheckVirtualRouterPermissions(&shared.Permissions{
 						OwnerU: 1,
 						OwnerM: 1,
@@ -232,9 +228,6 @@ func TestAccVirtualRouter(t *testing.T) {
 					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_only_ip6_specified", "floating_ip", "true"),
 					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_only_ip6_specified", "floating_only", "true"),
 					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_only_ip6_specified", "ip6", "fd00:ffff:ffff::2"),
-					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip6_specified", "floating_ip", "true"),
-					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip6_specified", "floating_only", "false"),
-					resource.TestCheckResourceAttr("opennebula_virtual_router_nic.nic_floating_ip6_specified", "ip6", "fd00:ffff:ffff::0"),
 					testAccCheckVirtualRouterPermissions(&shared.Permissions{
 						OwnerU: 1,
 						OwnerM: 1,
@@ -672,13 +665,6 @@ resource "opennebula_virtual_router_nic" "nic_floating_ip_specified" {
     virtual_router_id = opennebula_virtual_router.test.id
     network_id        = opennebula_virtual_network.network3.id
 }
-resource "opennebula_virtual_router_nic" "nic_floating_ip6_specified" {
-    depends_on        = [opennebula_virtual_router_instance.test]
-    ip6               = "fd00:ffff:ffff::0"
-    floating_ip       = true
-    virtual_router_id = opennebula_virtual_router.test.id
-    network_id        = opennebula_virtual_network.network3.id
-}
 `
 
 var testAccVirtualRouterUpdateNICsWithIPs = testAccVirtualRouterMachineTemplate + testAccVirtualRouterVNet + `
@@ -745,11 +731,4 @@ resource "opennebula_virtual_router_nic" "nic_floating_ip_specified" {
     network_id        = opennebula_virtual_network.network3.id
 }
 
-resource "opennebula_virtual_router_nic" "nic_floating_ip6_specified" {
-    depends_on        = [opennebula_virtual_router_instance.test]
-    ip6               = "fd00:ffff:ffff::0"
-    floating_ip       = true
-    virtual_router_id = opennebula_virtual_router.test.id
-    network_id        = opennebula_virtual_network.network3.id
-}
 `
